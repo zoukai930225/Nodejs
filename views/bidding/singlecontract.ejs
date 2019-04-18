@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/signin.css" />
+
+</head>
+<style>
+    body {
+        background-color: white;
+    }
+
+    .row {
+        margin-right: 0;
+        margin-left: 0rem;
+    }
+
+    .content {
+        width: 100%;
+        margin: auto
+    }
+
+    .container-body {
+        color: black;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 0;
+        position: relative;
+        margin-bottom: 0.24rem;
+        overflow: hidden;
+    }
+
+    h3 {
+        text-align: center;
+        margin-bottom: 0.25rem;
+    }
+
+
+    .table-title {
+        margin: 0.25rem auto 0.15rem 0.12rem;
+        clear: both
+    }
+
+    .firstLine {
+        border-top: 0.1rem solid #151515;
+        border-left: 0.1rem solid #151515;
+        border-right: 0.1rem solid #151515;
+    }
+
+    .secondLine {
+        border-top: 0.1rem solid #151515;
+        border-right: 0.1rem solid #151515;
+    }
+
+    /* #table td {
+        text-align: center;
+    } */
+
+    .bottomtable {
+        border: 0.1rem solid #151515;
+    }
+
+    .width-5 {
+        width: 5%;
+        position: relative;
+    }
+
+    .width-16 {
+        width: 16%;
+        position: relative;
+    }
+
+    .width-13 {
+        width: 13%;
+        position: relative;
+    }
+
+    .width-14 {
+        width: 13%;
+        position: relative;
+    }
+
+    .width-10 {
+        width: 10%;
+        position: relative;
+    }
+
+    .width-15 {
+        width: 15%;
+        position: relative;
+    }
+
+    .width-20 {
+        width: 20%;
+        position: relative;
+    }
+
+    .width-30 {
+        width: 30%;
+        position: relative;
+    }
+
+    .width-35 {
+        width: 35%;
+        position: relative;
+    }
+
+    .width-40 {
+        position: relative;
+        width: 40%;
+    }
+
+    .width-45 {
+        position: relative;
+        width: 45%;
+    }
+
+    .width-55 {
+        position: relative;
+        width: 55%;
+    }
+
+    table {
+        table-layout: fixed;
+    }
+
+    td {
+        word-break: break-all;
+        word-wrap: break-word;
+    }
+</style>
+
+<body>
+    <div class="content">
+        <div class="container-body">
+            <h3>销售合同</h3>
+            <table style="width: 100%;text-align: center;">
+                <tr>
+                    <td style="width: 8%">甲方：</td>
+                    <td style="width: 37%">
+                        <%= data.ContractInfo.NameOfPartyB %>
+                    </td>
+                    <td style="width: 18%">合同号/订单号：</td>
+                    <td style="width: 37%">
+                        <%= data.ContractInfo.ContractNo %>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 8%">乙方：</td>
+                    <td style="width: 37%">易虎网科技南京有限公司</td>
+                    <td style="width: 18%">签订时间：</td>
+                    <td style="width: 37%">
+                        <%= data.ContractInfo.addWhen %>
+                    </td>
+                </tr>
+            </table>
+            <div class="table-title">一：产品名称，型号，数量，金额（元）</div>
+            <table cellspacing="0" cellpadding="0" class="test" style="width:100% ;margin-left: 0;text-align: center">
+                <tr>
+                    <td class="width-10 firstLine">名称</td>
+                    <td class="width-40">
+                        <table style="width:100% ;margin-left: 0;text-align: center" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td class="width-45 secondLine">规格型号</td>
+                                <td class="width-20 secondLine">数量</td>
+                                <td class="width-35 secondLine">单价</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="width-10 secondLine">售价</td>
+                    <td class="width-13 secondLine">交货期</td>
+                    <td class="width-13 secondLine">运费</td>
+                    <td class="width-14 secondLine">总价</td>
+                </tr>
+                <%for(var i = 0 ; i < data.GoodsList.length ; i++) {%>
+                    <tr>
+                        <td class="width-10 firstLine">
+                            <%= data.GoodsList[i].CategoryName %>
+                        </td>
+                        <td class="width-40">
+                            <table style="width:100% ;margin-left: 0;text-align: center" cellspacing="0" cellpadding="0">
+                                <%for(var a = 0 ; a < data.GoodsList[i].product_list.length ; a++) {%>
+                                    <tr *ngFor="let ipro of i.product_list">
+                                        <td class="width-45 secondLine">
+                                            <%= data.GoodsList[i].product_list[a].ProductName %>
+                                        </td>
+                                        <td class="width-20 secondLine">
+                                            <%= data.GoodsList[i].product_list[a].ProductNumber %>件
+                                        </td>
+                                        <td class="width-35 secondLine">
+                                            <%= data.GoodsList[i].product_list[a].ProductPrice %>
+                                        </td>
+                                    </tr>
+                                    <%}%>
+                            </table>
+                        </td>
+                        <td class="width-10 secondLine">
+                            <%= data.GoodsList[i].SaleAmount %>
+                        </td>
+                        <td class="width-13 secondLine">
+                            <%= data.GoodsList[i].DeliveryDate %>
+                        </td>
+                        <td class="width-13 secondLine">
+                            <%= data.GoodsList[i].ShippingFee %>
+                        </td>
+                        <td class="width-14 secondLine">
+                            <%= data.GoodsList[i].SumPrice %>
+                        </td>
+                    </tr>
+                    <%}%>
+            </table>
+            <table cellspacing="0" cellpadding="0" class="bottomtable" style="width:100% ;margin-left: 0;line-height:3rem;">
+                <tr>
+                    <td style="border-bottom:0.01rem solid #151515;">合计：
+                        <%= data.ContractInfo.ContractAmount %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        合同价格依据：
+                    </td>
+                </tr>
+            </table>
+            <table style="margin-top:0.4rem;line-height:3rem; ">
+                <%for(var s = 0 ; s < data.ContractDetail.length ; s++) {%>
+                    <tr style="margin-bottom:0.2rem; ">
+                        <td>
+                            <%= s+1 %>、
+                                <%= data.ContractDetail[s].ContractTerms %>
+                        </td>
+                    </tr>
+                    <%}%>
+            </table>
+            <table style=" padding-bottom:0.4rem;line-height:3rem;margin-top:0.4rem;width: 100%;text-align: left;border:
+                        0.01rem solid #151515 ">
+                <tr>
+                    <td style="width: 50% ">甲方</td>
+                    <td style="width: 50% ">乙方</td>
+                </tr>
+                <tr>
+                    <td style="width: 50% ">单位名称(盖章)：
+                        <span>
+                            <%= data.ContractInfo.NameOfPartyB %>
+                        </span>
+                    </td>
+                    <td style="width: 50% ">单位名称(盖章)：
+                        <span>
+                            <%= data.YhCompany.NameOfPartyA %>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50% ">地址：
+                        <span>
+                            <%= data.ContractInfo.AddressOfPartyB %>
+                        </span>
+                    </td>
+                    <td style="width: 50% ">地址：
+                        <span>
+                            <%= data.YhCompany.AddressOfPartyA %>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50% ">法人代表：
+                        <span>
+                            <%= data.ContractInfo.LegalOfPartyB %>
+                        </span>
+                    </td>
+                    <td style="width: 50% ">法人代表：
+                        <span>
+                            <%= data.YhCompany.LegalOfPartyA %>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50% ">委托代理人：
+                        <span>
+                            <%= data.ContractInfo.AgenterOfPartyB %>
+                        </span>
+                    </td>
+                    <td style="width: 50% ">委托代理人：
+                        <span>
+                            <%= data.YhCompany.AgenterOfPartyA %>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50% ">电话：
+                        <span>
+                            <%= data.ContractInfo.TelOfPartyA %>
+                        </span>
+                    </td>
+                    <td style="width: 50% ">电话：
+                        <span>
+                            <%= data.YhCompany.TelOfPartyA %>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50% ">传真：
+                        <span>
+                            <%= data.ContractInfo.FaxOfPartyB %>
+                        </span>
+                    </td>
+                    <td style="width: 50% ">传真：
+                        <span>
+                            <%= data.YhCompany.FaxOfPartyA %>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50% ">开户银行：
+                        <span>
+                            <%= data.ContractInfo.BankOfPartyB %>
+                        </span>
+                    </td>
+                    <td style="width: 50% ">开户银行：
+                        <span>
+                            <%= data.YhCompany.BankOfPartyA %>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50% ">账号：
+                        <span>
+                            <%= data.ContractInfo.AccountOfPartyB %>
+                        </span>
+                    </td>
+                    <td style="width: 50% ">账号：
+                        <span>
+                            <%= data.YhCompany.AccountOfPartyA %>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50% ">税号：
+                        <span>
+                            <%= data.ContractInfo.TaxOfPartyB %>
+                        </span>
+                    </td>
+                    <td style="width: 50% ">税号：
+                        <span>
+                            <%= data.YhCompany.TaxOfPartyA %>
+                        </span>
+                    </td>
+                </tr>
+            </table>
+            <div style="width:100%;text-align: center; ">第1页</div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript " src="/javascripts/jquery.js "></script>
+<script>
+    if (window.screen.width >= 1000) {
+        var offWidth = 10;
+    } else {
+        var offWidth = window.screen.width / 50;
+    }
+    document.getElementsByTagName("html")[0].style.fontSize = offWidth + 'px';
+</script>

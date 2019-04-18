@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>
+            合同模板
+        </title>
+        <style>
+            body{
+                text-align: center;
+                padding: 12px 24px;
+                font-size: 14px;
+            }
+            h3{
+                margin-top: 0;
+            }
+            p{
+                text-align: left;
+            }
+            table{
+                width: 100%;
+                border: 1px solid black;
+                border-collapse:collapse;
+                margin: 16px 0;
+            }
+            table,th, td{
+                border: 1px solid black;
+                padding: 12px;
+            }
+            span{
+                font-weight: bold;
+            }
+            .right{
+                width: 50%;
+                text-align: left;
+                border: none;
+            }
+            .left{
+                text-align: left;
+            }
+            .terms{
+                font-weight: bold;
+                line-height: 1.5em;
+                text-align: left;
+            }
+            img{
+                width: 180px;
+                position: absolute;
+            }
+			.aimg{
+				left: 12%;
+                bottom: 5%;
+			}
+			.bimg{
+				right: 6%;
+				bottom: 7%;
+			}
+        </style>
+    </head>
+    <body>
+        <% if(data.IsIncludeTax === '0'){ %>
+            <p>下单日期：<%= data.CreateTime %></p>
+            <p>工厂名称：<%= data.CompanyB_Name %></p>
+            <p>联系方式：<%= data.CompanyB_Tel %></p>
+            <p>联系人：<%= data.CompanyB_Contacter %></p>
+            <p>订单编号：<%= data.ContractNo %></p>
+        <% }else{ %>
+            <h3>采购合同</h3>
+            <table style="width: 100%;text-align: center;">
+                <tr>
+                    <td style="width: 8%">甲方：</td>
+                    <td style="width: 37%">
+                        <%= data.CompanyA_Name %>
+                    </td>
+                    <td style="width: 18%">合同号/订单号：</td>
+                    <td style="width: 37%">
+                        <%= data.ContractNo %>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 8%">乙方：</td>
+                    <td style="width: 37%"><%= data.CompanyB_Name %></td>
+                    <td style="width: 18%">签订时间：</td>
+                    <td style="width: 37%">
+                        <%= data.CreateTime %>
+                    </td>
+                </tr>
+            </table>
+        <% } %>
+        <p><span>一、产品名称:型号、数量、金额(元)。</span></p>
+        <table style="width: 100%;text-align: center;">
+            <thead>
+                <tr>
+                    <th>产品名称</th><th>规格</th><th>参数</th><th>数量（套）</th><%- data.BiddingID.substring(0,1)=='B'?'<th>单价</th>':'' %><%- data.BiddingID.substring(0,1)=='B'?'<th>小计</th>':'' %><th>交货期</th><th>备注</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% data.Details.forEach(function(item){ %>
+                    <tr>
+                        <td><%= item.GoodsName %></td>
+                        <td><%= item.GoodsLabel %></td>
+                        <td>详见技术协议</td>
+                        <td><%= item.OrderQty %></td>
+                        <%- data.BiddingID.substring(0,1)=='B'?'<td>' + item.SuccessfulPrice + '</td>':'' %>
+                        <%- data.BiddingID.substring(0,1)=='B'?'<td>' + Math.round(item.OrderQty*item.SuccessfulPrice*100)/100 + '</td>':'' %>
+                        <td><%= item.DeliveryDate %></td>
+                        <td><%= item.Remark %></td>
+                    </tr>
+                <% }) %>
+                <tr>
+                    <td colspan= <%= data.BiddingID.substring(0,1)=='B'?'5':'6' %> style="text-align: left"><span>合计：</span><%= data.CACN + "（含16%增值税）" %></td>
+                    <%- data.BiddingID.substring(0,1)=='B'?'<td>' + data.ContractAmount + '</td>':'' %>
+                    <%- data.BiddingID.substring(0,1)=='B'?'<td></td> <td></td>':'' %>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="terms"><%- data.ContractTerms %></div>
+
+        <% if(data.IsIncludeTax === '0'){ %>
+            <div style="position: relative; text-align: right; padding-right: 200px">
+                用户确认：
+                <img src="/yonghuhetongquere.png" style="position: absolute; right: 80px; top: -46px; width: 100px; height: 100px">
+            </div>
+        <% } %>
+
+        <% if(data.IsODM === '1' && data.IsIncludeTax === '0'){ %>
+            <div>
+                <h2 style="text-align: center; margin-top: 86px">ODM/OEM委托合同</h2>
+                <table style="width: 100%; text-align: center;">
+                  <tr>
+                    <th>服务项目</th>
+                    <th>合计价格</th>
+                  </tr>
+                  <tr><td>产品、包装设计</td><td rowSpan='6'><%= data.ODMAmount %></td></tr>
+                  <tr><td>分装</td></tr>
+                  <tr><td>运输</td></tr>
+                  <tr><td>包材</td></tr>
+                  <tr><td>模具</td></tr>
+                  <tr><td>其他服务</td></tr>
+                </table>
+                <div class="terms"><%- data.ContractODM %></div>
+            </div>
+        <% } %>
+        <% if(data.IsODM === '1' || data.IsIncludeTax === '1'){ %>
+            <div style="position: relative">
+                <table style="position: relative">
+                    <tr>
+                        <th>甲方</th><th>乙方</th>
+                    </tr>
+                    <tr>
+                        <td class="right"><span>单位名称(盖章)：</span><%=data.CompanyA_Name%></td><td class="left"><span>单位名称(盖章)：</span><%=data.CompanyB_Name%></td>
+                    </tr>
+                    <tr>
+                        <td class="right"><span>地址：</span><%=data.CompanyA_Address%></td><td class="left"><span>地址：</span><%=data.CompanyB_Address%></td>
+                    </tr>
+                    <tr>
+                        <td class="right"><span>法人代表：</span><%=data.CompanyA_LegalPerson%></td><td class="left"><span>法人代表：</span><%=data.CompanyB_LegalPerson%></td>
+                    </tr>
+                    <tr>
+                        <td class="right"><span>委托代理人：</span><%=data.CompanyA_Contacter%></td><td class="left"><span>委托代理人：</span><%=data.CompanyB_Contacter%></td>
+                    </tr>
+                    <tr>
+                        <td class="right"><span>电话：</span><%=data.CompanyA_Tel%></td><td class="left"><span>电话：</span><%=data.CompanyB_Tel%></td>
+                    </tr>
+                    <tr>
+                        <td class="right"><span>传真：</span><%=data.CompanyA_Fax%></td><td class="left"><span>传真：</span><%=data.CompanyB_Fax%></td>
+                    </tr>
+                    <tr>
+                        <td class="right"><span>开户银行：</span><%=data.CompanyA_DepositBank%></td><td class="left"><span>开户银行：</span><%=data.CompanyB_DepositBank%></td>
+                    </tr>
+                    <tr>
+                        <td class="right"><span>账号：</span><%=data.CompanyA_BankAccount%></td><td class="left"><span>账号：</span><%=data.CompanyB_BankAccount%></td>
+                    </tr>
+                    <tr>
+                        <td class="right"><span>税号：</span><%=data.CompanyA_Tax%></td><td class="left"><span>税号：</span><%=data.CompanyB_Tax%></td>
+                    </tr>
+                    <img src=<%=data.CompanyAImg%> class="aimg">
+                    <img src="/yonghuhetongquere.png" class="bimg">
+                </table>
+                <p>备注：我已认真阅读并同意《技术协议》</p>
+            </div>
+        <% } %>
+    </body>
+</html>

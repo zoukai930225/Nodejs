@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/signin.css" />
+</head>
+<style>
+    body {
+        background-color: white;
+        padding: 0;
+    }
+
+    .row {
+        margin-right: 0;
+        margin-left: 0rem;
+    }
+
+    .content {
+        width: 100%;
+        margin: auto
+    }
+
+    .container-body {
+        color: black;
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 0;
+        position: relative;
+        margin-bottom: 0.24rem;
+        overflow: hidden;
+    }
+
+    h3 {
+        text-align: center;
+        margin-bottom: 0.25rem;
+    }
+
+
+    .table-title {
+        margin: 0.25rem auto 0.15rem 0.12rem;
+        clear: both
+    }
+
+    .firstLine {
+        border-top: 0.1rem solid #151515;
+        border-left: 0.1rem solid #151515;
+        border-right: 0.1rem solid #151515;
+    }
+
+    .secondLine {
+        border-top: 0.1rem solid #151515;
+        border-right: 0.1rem solid #151515;
+    }
+
+    .leftLine {
+        border-left: 0.1rem solid #151515;
+    }
+
+    #table td {
+        text-align: center;
+    }
+
+    .bottomtable {
+        border: 0.1rem solid #151515;
+    }
+
+    .width-7 {
+        width: 7%;
+        position: relative;
+    }
+
+    .width-16 {
+        width: 16%;
+        position: relative;
+    }
+
+    .width-13 {
+        width: 13%;
+        position: relative;
+    }
+
+    .width-21 {
+        width: 21%;
+        position: relative;
+    }
+
+    .width-10 {
+        width: 10%;
+        position: relative;
+    }
+
+    .width-15 {
+        width: 15%;
+        position: relative;
+    }
+
+    .width-79 {
+        position: relative;
+        width: 79%;
+    }
+
+    .width-20 {
+        width: 20%;
+        position: relative;
+    }
+
+    .width-30 {
+        width: 30%;
+        position: relative;
+    }
+
+    .width-35 {
+        width: 35%;
+        position: relative;
+    }
+
+    .width-40 {
+        position: relative;
+        width: 40%;
+    }
+
+    .width-45 {
+        position: relative;
+        width: 45%;
+    }
+
+    .width-50 {
+        position: relative;
+        width: 50%;
+    }
+
+    .width-55 {
+        position: relative;
+        width: 55%;
+    }
+
+
+
+    table {
+        table-layout: fixed;
+    }
+
+    td {
+        word-break: break-all;
+        word-wrap: break-word;
+    }
+
+    .contractState {
+        margin-top: 0.5rem;
+        width: 10rem;
+        height: 10rem;
+        position: absolute;
+        bottom: 5rem;
+        right: 10%;
+        z-index: 9999;
+    }
+
+    .contractState_Pro {
+        width: 12rem;
+        height: 12rem;
+        position: absolute;
+        bottom: 2%;
+        right: 10%;
+        z-index: 9999;
+    }
+
+    .contractState_Pros {
+        width: 12rem;
+        height: 12rem;
+        position: absolute;
+        bottom: 2%;
+        right: 10%;
+        z-index: 9999;
+    }
+
+    .big {
+        font-weight: 900;
+    }
+
+    .textAlign-Left {
+        text-align: left;
+        text-indent: 1rem;
+    }
+</style>
+
+<body>
+    <div class="content">
+        <div class="container-body">
+            <h3>
+                <%= title %>
+            </h3>
+            <table style="width:100%;text-align:left;margin:0 auto;text-indent:1rem;line-height:2rem">
+                <tr>
+                    <td>下单日期：</td>
+                    <td>
+                        <%= data.ContractInfo.addWhen %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>用户名称：</td>
+                    <td>
+                        <% if(data.ContractInfo.NameOfPartyB) { %>
+                        <%= data.ContractInfo.NameOfPartyB %>
+                        <%}else{%>
+                        <% if(data.ContractInfo.RealName) { %>
+                        <%= data.ContractInfo.RealName %>
+                        <%}else{%>
+                        用户
+                        <%= data.ContractInfo.TelOfPartyB.substr(data.ContractInfo.TelOfPartyB.length-4,4) %>
+                        <%}%>
+                        <%}%>
+                    </td>
+                </tr>
+                <tr>
+                    <td>联系方式：</td>
+                    <td>
+                        <%= data.ContractInfo.TelOfPartyB %>
+                    </td>
+                </tr>
+                <!-- <tr>
+                    <td>联系人：</td>
+                    <td>
+                        <%= data.ContractInfo.AgenterOfPartyB %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="big">订单信息：</td>
+                    <td></td>
+                </tr> -->
+                <tr>
+                    <td style="width: 18%">订单编号：</td>
+                    <td style="width: 37%">
+                        <%= data.ContractInfo.ContractNo %>
+                    </td>
+                </tr>
+            </table>
+            <table cellspacing="0" cellpadding="0" class="test" style="width:100% ;margin-left: 0;text-align: center"
+                id="table">
+                <tr>
+                    <td class="width-70">
+                        <table style="width:100% ;margin-left: 0;text-align: center" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td class="width-30 secondLine leftLine">商品名称</td>
+                                <td class="width-50">
+                                    <table style="width:100% ;margin-left: 0;text-align: center" cellspacing="0"
+                                        cellpadding="0">
+                                        <tr>
+                                            <td class="width-35 secondLine">规格品种</td>
+                                            <td class="width-20 secondLine">参数</td>
+                                            <td class="width-15 secondLine">数量</td>
+                                            <td class="width-30 secondLine">单价(元)</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="width-20 secondLine">交货期</td>
+                                <td class="width-20 secondLine">小计</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td class="width-15 secondLine">运费</td>
+                    <td class="width-15 secondLine">总价</td>
+                </tr>
+                <tr>
+                    <td class="width-70">
+                        <table style="width:100% ;margin-left: 0;text-align: center" cellspacing="0" cellpadding="0">
+                            <%for(var a = 0 ; a < data.GoodsList.length ; a++) {%>
+                            <tr>
+                                <td class="width-30 secondLine leftLine">
+                                    <%= data.GoodsList[a].CategoryName %>
+                                </td>
+                                <td class="width-50">
+                                    <table style="width:100% ;margin-left: 0;text-align: center" cellspacing="0"
+                                        cellpadding="0">
+                                        <%for(var i = 0 ; i < data.GoodsList[a].product_list.length ; i++) {%>
+                                        <tr>
+                                            <td class="width-35 secondLine">
+                                                <%= data.GoodsList[a].product_list[i].ProductName %>
+                                            </td>
+                                            <td class="width-20 secondLine">详见技术协议</td>
+                                            <td class="width-15 secondLine">
+                                                <% if(data.GoodsList[a].product_list[i].GoodsSeriesUnit) { %>
+                                                <%= data.GoodsList[a].product_list[i].ProductNumber %>
+                                                <%= data.GoodsList[a].product_list[i].GoodsSeriesUnit %>
+                                                <% }else{ %>
+                                                <%= data.GoodsList[a].product_list[i].ProductNumber %>件
+                                                <% } %>
+                                            </td>
+                                            <td class="width-30 secondLine">
+                                                <%= data.GoodsList[a].product_list[i].ProductPrice %>
+                                                <!-- <% if(data.GoodsList[a].product_list[i].GoodsSeriesUnit) { %>
+                                                <%= data.GoodsList[a].product_list[i].ProductPrice %>
+                                                (
+                                                <%= data.GoodsList[a].product_list[i].GoodsSeriesUnit %>/元)
+                                                <% }else{ %>
+                                                <%= data.GoodsList[a].product_list[i].ProductPrice %>(件/元)
+                                                <% } %> -->
+                                            </td>
+                                        </tr>
+                                        <%}%>
+                                    </table>
+                                </td>
+                                <td class="width-20 secondLine">
+                                    <%= data.GoodsList[a].DeliveryDate %>
+                                </td>
+                                <td class="width-20 secondLine">
+                                    <%= data.GoodsList[a].SaleAmount %>
+                                </td>
+                            </tr>
+                            <%}%>
+                        </table>
+                    </td>
+                    <td class="width-15 secondLine">
+                        <%= data.ContractInfo.ShippingFee %>
+                    </td>
+                    <td class="width-15 secondLine">
+                        <%= data.ContractInfo.TotalAmount %>
+                    </td>
+                </tr>
+            </table>
+            <table style="width:100% ;margin-left:0;text-align:center;line-height: 2rem;" cellspacing="0" cellpadding="0">
+                <% if(data.ContractInfo.CouponValue!=0) { %>
+                <tr>
+                    <td class=" secondLine leftLine textAlign-Left">优惠：
+                        <%= data.ContractInfo.CouponValue %>
+                    </td>
+                    <!-- <td class="width-79 secondLine">
+
+                        </td> -->
+                </tr>
+                <%}%>
+                <!-- <%if(data.ContractInfo.TaxPrice!="0.00") {%>
+                <tr>
+                    <td class="secondLine leftLine textAlign-Left">增值税：
+                        <%= data.ContractInfo.TaxPrice %>
+                    </td>
+                </tr>
+                <%}%> -->
+                <tr>
+                    <td class="secondLine leftLine bottomtable textAlign-Left">
+                        总计(不含税金额)：
+                        <%= data.ContractInfo.ContractAmount %>
+                    </td>
+                </tr>
+            </table>
+            <table style="width:100%;text-align:left;margin:0 auto;text-indent:1rem;line-height:2rem">
+                <!-- <tr>
+                    <td class="big">交货信息：</td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1. 交货地址：</td>
+                    <td>
+                        <%= data.ContractInfo.AddressOfPartyB %>
+                    </td>
+                </tr> -->
+                <%for(var a = 0 ; a < data.ContractTemplate.ContractTemplateDetails.length ; a++) {%>
+                <tr>
+                    <td>
+                        <%= data.ContractTemplate.ContractTemplateDetails[a] %>
+                    </td>
+                </tr>
+                <%}%>
+            </table>
+            <table style="width:100%;text-align:left;margin:8rem auto;text-indent:1rem;">
+                <tr>
+                    <td></td>
+                    <td class="big">用户确认：</td>
+                </tr>
+            </table>
+            <% if(data.ContractInfo.ContractState>0) { %>
+            <div class="contractState">
+                <img alt="" style="width:100%;" src=<%=data.ContractTemplate.TemplatePhoto %> >
+                <!-- <img src="/yonghuhetongquere.png" alt="" style="width:100%;"> -->
+            </div>
+            <% }%>
+        </div>
+    </div>
+    <div style="width:100%;text-align:center;">第1页</div>
+</body>
+<script type="text/javascript " src="/javascripts/jquery.js "></script>
+<script>
+    $(() => {
+        for (let e of $('input')) {
+            e.disabled = true;
+        }
+    });
+</script>
+
+</html>
